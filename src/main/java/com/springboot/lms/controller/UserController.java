@@ -64,6 +64,13 @@ public class UserController {
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
 		}
 	}
+
+	@GetMapping("/details")
+	public Object getLoggedInUserDetails(Principal principal){
+		String userName = principal.getName();
+		Object object = userService.getUserInfo(userName);
+		return object;
+	}
 }
 
 
