@@ -20,7 +20,7 @@ public class CModule {
 
 	private int sequence;
 
-	@ManyToOne //<-- Creates course_id as a foreign key in module table
+	@ManyToOne
 	private Course course;
 
 	public int getId() {

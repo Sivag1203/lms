@@ -17,9 +17,11 @@ public class AuthorService {
     private UserService userService;
 
     @Autowired
-    public AuthorService(AuthorRepository authorRepository) {
+    public AuthorService(AuthorRepository authorRepository, UserService userService) {
         this.authorRepository = authorRepository;
+        this.userService = userService;
     }
+
 
     // Create
     public Author addAuthor(Author author) {
@@ -65,4 +67,5 @@ public class AuthorService {
             return true;
         }).orElse(false);
     }
+
 }

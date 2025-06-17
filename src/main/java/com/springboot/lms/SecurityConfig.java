@@ -20,12 +20,16 @@ public class SecurityConfig {
 	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http
 				.csrf((csrf) -> csrf.disable())
+				.cors(Customizer.withDefaults())
 				.authorizeHttpRequests(authorize -> authorize
 						.requestMatchers("/api/learner/get-all").permitAll()
 						.requestMatchers("/api/user/signup").permitAll()
 						.requestMatchers("/api/user/login").permitAll()
-						.requestMatchers("/api/user/token").authenticated()
+						.requestMatchers("/api/user/details").permitAll()
+						.requestMatchers("/api/user/token").permitAll()
 						.requestMatchers("/api/learner/add").permitAll()
+						.requestMatchers("/api/course/all").permitAll()
+						.requestMatchers("/api/course/by-author").hasAuthority("AUTHOR")
 						.requestMatchers("/api/learner/get-one").hasAuthority("LEARNER")
 						.requestMatchers("/api/course/add").hasAnyAuthority("AUTHOR","EXECUTIVE")
 						.anyRequest().authenticated()

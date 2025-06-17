@@ -23,7 +23,6 @@ public class LearnerCourseService {
 
 	public LearnerCourseService(CourseRepository courseRepository, LearnerRepository learnerRepository,
 								LearnerCourseRepository learnerCourseRepository) {
-		super();
 		this.courseRepository = courseRepository;
 		this.learnerRepository = learnerRepository;
 		this.learnerCourseRepository = learnerCourseRepository;
@@ -32,11 +31,11 @@ public class LearnerCourseService {
 	public LearnerCourse enrollLearnerInCourse(int learnerId, int courseId, LearnerCourse learnerCourse) {
 		// Fetch Learner by learnerId
 		Learner learner = learnerRepository.findById(learnerId)
-				.orElseThrow(()-> new ResourceNotFoundException("Learner ID Invalid"));
+				.orElseThrow(() -> new ResourceNotFoundException("Learner ID Invalid"));
 
 		// Fetch Course by courseId
 		Course course = courseRepository.findById(courseId)
-				.orElseThrow(()-> new ResourceNotFoundException("Course ID Invalid"));
+				.orElseThrow(() -> new ResourceNotFoundException("Course ID Invalid"));
 
 		// Generate todays date and attach it to learnerCourse object
 		learnerCourse.setEnrollDate(LocalDate.now());
@@ -55,13 +54,12 @@ public class LearnerCourseService {
 
 	public List<Course> getCoursesByLearnerId(int learnerId) {
 		learnerRepository.findById(learnerId)
-				.orElseThrow(()-> new ResourceNotFoundException("Learner ID Invalid"));
+				.orElseThrow(() -> new ResourceNotFoundException("Learner ID Invalid"));
 
 		List<Course> list = learnerCourseRepository.getCourseByLearnerId(learnerId);
-		if(list != null && list.size()==0)
+		if (list != null && list.isEmpty())
 			throw new NotEnrolledInCourseException("Learner not enrolled in any course!!");
 		return list;
 	}
-
 
 }

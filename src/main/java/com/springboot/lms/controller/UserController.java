@@ -1,6 +1,8 @@
 package com.springboot.lms.controller;
 
 import java.security.Principal;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.springboot.lms.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,11 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.springboot.lms.model.User;
 import com.springboot.lms.service.UserService;
@@ -20,6 +18,7 @@ import com.springboot.lms.util.JwtUtil;
 
 @RestController
 @RequestMapping("/api/user")
+@CrossOrigin("http://localhost:5173")
 public class UserController {
 
 	@Autowired
@@ -59,7 +58,9 @@ public class UserController {
 	public ResponseEntity<?> getToken(Principal principal) {
 		try {
 			String token = jwtUtil.createToken(principal.getName());
-			return ResponseEntity.status(HttpStatus.OK).body(token);
+			Map<String,Object> map = new HashMap<>();
+			map.put("token",token);
+			return ResponseEntity.status(HttpStatus.OK).body(map);
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
 		}

@@ -37,25 +37,21 @@ public class UserService {
 		return userRepository.save(user);
 	}
 	public Object getUserInfo(String username) {
-		User user = userRepository.getByUsername(username);
+		User user = userRepository.findByUsername(username);
+
 		switch (user.getRole().toUpperCase()) {
 			case "LEARNER":
-				Learner learner = learnerRepository.getLearnerByUsername(username);
-				return learner;
+				return learnerRepository.getLearnerByUsername(username);
 			case "AUTHOR":
-				Author author = authorRepository.getAuthorByUsername(username);
-				if (author.isActive())
-					return author;
-				else
-					throw new RuntimeException("Author Inactive");
+				return authorRepository.findByUsername(username)
+						.map(author -> {
+							if (author.isActive()) return author;
+							else throw new RuntimeException("Author Inactive");
+						}).orElseThrow(() -> new RuntimeException("Author not found"));
 			case "EXECUTIVE":
-				return null;
+				return user;
 			default:
 				return null;
 		}
-
 	}
-
-
-
 }

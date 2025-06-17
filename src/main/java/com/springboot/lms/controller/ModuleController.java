@@ -26,13 +26,13 @@ public class ModuleController {
 	 * PATH: /api/module/add/{courseId}
 	 * PARAM: Module as request body , courseId as PathVariable
 	 * Response: Module along with course it belongs to
-	 * */
+	 */
 
 	@PostMapping("/add/{courseId}")
-	public CModule addModule(@PathVariable int courseId,
+	public CModule addModule(@PathVariable("courseId") int courseId,
 							 @RequestBody CModule module) {
 
-		return moduleService.addModule(courseId,module);
+		return moduleService.addModule(courseId, module);
 	}
 
 	/*
@@ -41,17 +41,9 @@ public class ModuleController {
 	 * PATH: /api/module/get?courseId=1
 	 * Response: List<Module>
 	 * Method: GET
-	 * */
+	 */
 	@GetMapping("/get")
-	public List<CModule> getModuleByCourseId(@RequestParam int courseId){
+	public List<CModule> getModuleByCourseId(@RequestParam int courseId) {
 		return moduleService.getModuleByCourseId(courseId);
 	}
 }
-
-
-
-
-
-
-
-

@@ -12,4 +12,5 @@ public interface ModuleRepository extends JpaRepository<CModule, Integer>{
 	@Query("select m from CModule m where m.course.id=?1")
 	List<CModule> getModuleByCourseId(int courseId);
 
+	List<CModule> findByCourseIdOrderBySequenceAsc(int courseId);
 }

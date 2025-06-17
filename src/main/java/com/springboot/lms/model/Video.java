@@ -22,8 +22,10 @@ public class Video {
 	@Column(name = "play_time")
 	private float playTime;
 
-	@Column(name="video_code")
+	@Column(name = "video_code")
 	private String videoCode;
+
+	private int sequence;
 
 	@ManyToOne
 	private CModule module;
@@ -68,5 +70,12 @@ public class Video {
 		this.module = module;
 	}
 
+	public int getSequence() {
+		return sequence;
+	}
+
+	public void setSequence(int sequence) {
+		this.sequence = sequence;
+	}
 
 }

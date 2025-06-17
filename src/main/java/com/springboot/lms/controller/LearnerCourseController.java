@@ -27,35 +27,28 @@ public class LearnerCourseController {
 	 * PARAM: Path variable(learnerId,courseId) , Request Body ({ couponCode: ""})
 	 * Response: LearnerCourse
 	 *
-	 * */
+	 */
 	@PostMapping("/api/learner/enroll/course/{learnerId}/{courseId}")
-	public LearnerCourse enrollLearnerInCourse(@PathVariable int learnerId,
-											   @PathVariable int courseId,
+	public LearnerCourse enrollLearnerInCourse(@PathVariable("learnerId") int learnerId,
+											   @PathVariable("courseId") int courseId,
 											   @RequestBody LearnerCourse learnerCourse) {
-		return learnerCourseService.enrollLearnerInCourse(learnerId,courseId,learnerCourse);
+		return learnerCourseService.enrollLearnerInCourse(learnerId, courseId, learnerCourse);
 	}
+
 	/*
 	 * AIM: Fetch all learners that have enrolled in given course
 	 * PATH: /api/learner/enroll/course/{courseId}
 	 * METHOD: GET
 	 * PARAM: Path variable(courseId)
 	 * Response: List<Learner>
-	 * */
+	 */
 	@GetMapping("/api/learner/enroll/course/{courseId}")
 	public List<Learner> getLearnerByCourseId(@PathVariable int courseId) {
 		return learnerCourseService.getLearnerByCourseId(courseId);
 	}
 
 	@GetMapping("/api/course/learner/{learnerId}")
-	public List<Course> getCoursesByLearnerId(@PathVariable int learnerId) {
+	public List<Course> getCoursesByLearnerId(@PathVariable("learnerId") int learnerId) {
 		return learnerCourseService.getCoursesByLearnerId(learnerId);
 	}
 }
-
-
-
-
-
-
-
-
