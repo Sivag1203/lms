@@ -5,6 +5,7 @@ import com.springboot.lms.service.AuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.security.Principal;
 import java.util.List;
@@ -49,6 +50,12 @@ public class AuthorController {
         String username = principal.getName();
         boolean deleted = authorService.deleteAuthorByUsername(username);
         return deleted ? "Author deleted successfully." : "Author not found.";
+    }
+
+    @PostMapping("/upload/profile-pic")
+    public String uploadProfilePic(Principal principal, @RequestParam("file")MultipartFile file){
+        String username = principal.getName();
+        return file.getOriginalFilename() + file.getSize();
     }
 
 }
